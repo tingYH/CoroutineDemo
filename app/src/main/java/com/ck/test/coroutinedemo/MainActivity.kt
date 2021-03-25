@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
             }
             job_progress_bar.startJobOrCancel(job)
         }
+
+        bt_next.setOnClickListener {
+            this@MainActivity.startClearTopActivity(ParentCoroutineActivity::class.java)
+        }
     }
 
     fun ProgressBar.startJobOrCancel(job: Job) {
