@@ -30,36 +30,14 @@ class ParentCoroutineActivity : AppCompatActivity() {
     }
 
     //Coroutine Default設定: 若parent被取消則裡面的子job都會被刪除
-//    private fun main() {
-//        val startTime = System.currentTimeMillis()
-//        println("Starting Parent job...")
-//        parent = CoroutineScope(Main).launch {
-//            launch {
-//                work(1)
-//            }
-//            launch {
-//                work(2)
-//            }
-//        }
-//
-//        parent.invokeOnCompletion { throwable ->
-//            if (throwable != null) {
-//                println("job was canceled after ${System.currentTimeMillis() - startTime} ms.")
-//            } else {
-//                println("Done in ${System.currentTimeMillis() - startTime} ms.")
-//            }
-//        }
-//    }
-
-    //使用GlobalScope 則parent被刪除後 coroutine一樣會繼續執行
     private fun main() {
         val startTime = System.currentTimeMillis()
         println("Starting Parent job...")
         parent = CoroutineScope(Main).launch {
-            GlobalScope.launch {
+            launch {
                 work(1)
             }
-            GlobalScope.launch {
+            launch {
                 work(2)
             }
         }
@@ -72,6 +50,28 @@ class ParentCoroutineActivity : AppCompatActivity() {
             }
         }
     }
+
+    //使用GlobalScope 則parent被刪除後 coroutine一樣會繼續執行
+//    private fun main() {
+//        val startTime = System.currentTimeMillis()
+//        println("Starting Parent job...")
+//        parent = CoroutineScope(Main).launch {
+//            GlobalScope.launch {
+//                work(1)
+//            }
+//            GlobalScope.launch {
+//                work(2)
+//            }
+//        }
+//
+//        parent.invokeOnCompletion { throwable ->
+//            if (throwable != null) {
+//                println("job was canceled after ${System.currentTimeMillis() - startTime} ms.")
+//            } else {
+//                println("Done in ${System.currentTimeMillis() - startTime} ms.")
+//            }
+//        }
+//    }
 
     private fun println(msg: String) {
         Log.d(TAG, msg)

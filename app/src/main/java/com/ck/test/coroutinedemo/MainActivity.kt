@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         bt_next.setOnClickListener {
             this@MainActivity.startClearTopActivity(ParentCoroutineActivity::class.java)
         }
+        bt_async_await.setOnClickListener {
+            this@MainActivity.startClearTopActivity(AysncNAwaitActivity::class.java)
+        }
     }
 
     fun ProgressBar.startJobOrCancel(job: Job) {
